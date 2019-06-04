@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <properties>
+        <property name="LOG_HOME">/data/logs</property>
+        <property name="FILE_NAME">rsyslog</property>
+    </properties>
+
+    <Appenders>
+        <Syslog name="SYSLOG" host="10.0.1.32" port="514" protocol="UDP" facility="LOCAL7" charset="GBK" >
+            <LoggerFields>
+                <KeyValuePair key="message" value="%msg"/>
+            </LoggerFields>
+        </Syslog>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+
+        <Logger name="com.rsyslog.hello.Rsyslog" level="debug">
+            <AppenderRef ref="SYSLOG"/>
+        </Logger>
+    </Loggers>
+</Configuration>
